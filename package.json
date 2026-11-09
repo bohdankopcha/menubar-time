@@ -1,0 +1,89 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "menubar-time",
+  "title": "Menu Bar Time",
+  "description": "Keep your favorite time zones in the menu bar with country flags and custom labels.",
+  "icon": "extension-icon.png",
+  "author": "bogdan",
+  "platforms": ["macOS"],
+  "categories": ["Productivity", "Utilities"],
+  "license": "MIT",
+  "engines": { "node": ">=22.14.0" },
+  "commands": [
+    {
+      "name": "world-clocks",
+      "title": "World Clocks",
+      "description": "Show your selected time zones in the menu bar. Click a clock to copy its time.",
+      "mode": "menu-bar",
+      "interval": "1m",
+      "keywords": ["timezone", "clock", "time", "flag"]
+    },
+    {
+      "name": "manage-time-zones",
+      "title": "Manage Time Zones",
+      "description": "Add, reorder, edit, or hide menu bar clocks and customize their flags and labels.",
+      "mode": "view",
+      "keywords": ["timezone", "city", "country", "flag", "settings"]
+    }
+  ],
+  "preferences": [
+    {
+      "name": "timeFormat",
+      "title": "Time Format",
+      "description": "Display time using a 24-hour or 12-hour clock.",
+      "type": "dropdown",
+      "required": false,
+      "default": "24h",
+      "data": [
+        { "title": "24-hour · 14:30", "value": "24h" },
+        { "title": "12-hour · 2:30 PM", "value": "12h" }
+      ]
+    },
+    {
+      "name": "showFlags",
+      "title": "Menu Bar Appearance",
+      "description": "Show each clock's flag or custom emoji beside its time in the menu bar.",
+      "type": "checkbox",
+      "label": "Show flags and emoji",
+      "required": false,
+      "default": true
+    },
+    {
+      "name": "showLabels",
+      "title": "",
+      "description": "Show city names or your custom labels in the menu bar.",
+      "type": "checkbox",
+      "label": "Show clock labels",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "separator",
+      "title": "Clock Separator",
+      "description": "Separate clocks with a divider, a dot, or extra space.",
+      "type": "dropdown",
+      "required": false,
+      "default": "divider",
+      "data": [
+        { "title": "Vertical line · 🇵🇱 14:30 | 🇺🇸 08:30", "value": "divider" },
+        { "title": "Dot · 🇵🇱 14:30 · 🇺🇸 08:30", "value": "dot" },
+        { "title": "Space · 🇵🇱 14:30   🇺🇸 08:30", "value": "space" }
+      ]
+    }
+  ],
+  "scripts": {
+    "setup:raycast": "node scripts/register-raycast.mjs && npm run build",
+    "dev": "ray develop",
+    "build": "ray build -e dist",
+    "build:dist": "ray build -e dist -o dist",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test.mjs",
+    "check": "npm run typecheck && npm test && npm run build:dist"
+  },
+  "dependencies": { "@raycast/api": "^1.104.11" },
+  "devDependencies": {
+    "@types/node": "22.13.10",
+    "@types/react": "19.0.10",
+    "typescript": "^5.8.3"
+  }
+}
